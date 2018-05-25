@@ -9,18 +9,16 @@ public class Recipe {
 
     private int id;
     private String name;
-    private List<Ingredients> ingredients;
+    private List<Ingredient> mIngredients;
     private List<Step> steps;
     private int servings;
-    private int imageResourceId;
 
-    public Recipe(int id, String name, List<Ingredients> ingredients, List<Step> steps, int servings, int imageResourceId) {
+    public Recipe(int id, String name, List<Ingredient> ingredients, List<Step> steps, int servings) {
         this.id = id;
         this.name = name;
-        this.ingredients = ingredients;
+        this.mIngredients = ingredients;
         this.steps = steps;
         this.servings = servings;
-        this.imageResourceId = imageResourceId;
     }
 
     public int getId() {
@@ -39,12 +37,12 @@ public class Recipe {
         this.name = name;
     }
 
-    public List<Ingredients> getIngredients() {
-        return ingredients;
+    public List<Ingredient> getIngredients() {
+        return mIngredients;
     }
 
-    public void setIngredients(List<Ingredients> ingredients) {
-        this.ingredients = ingredients;
+    public void setIngredients(List<Ingredient> ingredients) {
+        this.mIngredients = ingredients;
     }
 
     public List<Step> getSteps() {
@@ -61,13 +59,5 @@ public class Recipe {
 
     public void setServings(int servings) {
         this.servings = servings;
-    }
-
-    public int getImageResourceId() {
-        return imageResourceId;
-    }
-
-    public void setImageResourceId(int imageResourceId) {
-        this.imageResourceId = imageResourceId;
     }
 }

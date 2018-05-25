@@ -3,23 +3,23 @@ package com.innopolis.sergeypinkevich.domain.entity;
 /**
  * @author Sergey Pinkevich
  */
-class Ingredients {
+public class Ingredient {
 
-    private int quantity;
+    private double quantity;
     private String measure;
     private String ingredient;
 
-    public Ingredients(int quantity, String measure, String ingredient) {
+    public Ingredient(double quantity, String measure, String ingredient) {
         this.quantity = quantity;
         this.measure = measure;
         this.ingredient = ingredient;
     }
 
-    public int getQuantity() {
+    public double getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(double quantity) {
         this.quantity = quantity;
     }
 

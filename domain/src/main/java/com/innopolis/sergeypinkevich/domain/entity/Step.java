@@ -3,7 +3,7 @@ package com.innopolis.sergeypinkevich.domain.entity;
 /**
  * @author Sergey Pinkevich
  */
-class Step {
+public class Step {
 
     private int id;
     private String shortDescription;

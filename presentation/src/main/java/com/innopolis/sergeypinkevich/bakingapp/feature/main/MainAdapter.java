@@ -55,7 +55,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
         }
 
         public void bind(Recipe recipe) {
-            recipeImage.setImageResource(recipe.getImageResourceId());
+
         }
     }
 }

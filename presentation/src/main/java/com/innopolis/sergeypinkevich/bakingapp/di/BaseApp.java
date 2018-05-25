@@ -5,6 +5,7 @@ import android.app.Application;
 import com.innopolis.sergeypinkevich.bakingapp.di.component.AppComponent;
 import com.innopolis.sergeypinkevich.bakingapp.di.component.DaggerAppComponent;
 import com.innopolis.sergeypinkevich.bakingapp.di.module.AppModule;
+import com.innopolis.sergeypinkevich.bakingapp.di.module.RepositoryModule;
 
 /**
  * @author Sergey Pinkevich
@@ -18,6 +19,7 @@ public class BaseApp extends Application {
         super.onCreate();
         component = DaggerAppComponent.builder()
                 .appModule(new AppModule(this))
+                .repositoryModule(new RepositoryModule())
                 .build();
     }
 }
