@@ -2,6 +2,7 @@ package com.innopolis.sergeypinkevich.bakingapp.feature.main;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
+import com.innopolis.sergeypinkevich.domain.entity.Recipe;
 import com.innopolis.sergeypinkevich.domain.repository.DataProvider;
 
 import javax.inject.Inject;
@@ -21,5 +22,9 @@ public class MainPresenter extends MvpPresenter<MainView> {
 
     public void loadRecipes() {
         getViewState().showRecipes(dataProvider.getRecipesList());
+    }
+
+    public void showInformationAboutRecipe(Recipe recipe) {
+        getViewState().showInformationAboutRecipe(recipe);
     }
 }

@@ -24,19 +24,24 @@ import butterknife.ButterKnife;
  */
 public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
 
+    private AdapterClickListener listener;
     private Context context;
     private List<Recipe> recipes;
 
-    public MainAdapter(Context context, List<Recipe> recipeList) {
+    public MainAdapter(AdapterClickListener listener) {
+        this.listener = listener;
+    }
+
+    public void setData(Context context, List<Recipe> recipes) {
         this.context = context;
-        recipes = recipeList;
+        this.recipes = recipes;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         CardView view = (CardView) LayoutInflater.from(parent.getContext()).inflate(R.layout.recipe_card, parent, false);
-        return new ViewHolder(view);
+        return new ViewHolder(view, listener);
     }
 
     @Override
@@ -49,15 +54,17 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
         return recipes.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         @BindView(R.id.recipe_image)
         ImageView recipeImage;
         @BindView(R.id.recipe_name)
         TextView recipeName;
 
-        public ViewHolder(View itemView) {
+        public ViewHolder(View itemView, AdapterClickListener clickListener) {
             super(itemView);
+            listener = clickListener;
+            itemView.setOnClickListener(this);
             ButterKnife.bind(this, itemView);
         }
 
@@ -65,6 +72,11 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
             int imageId = context.getResources().getIdentifier(recipe.getName().toLowerCase().split("\\s+")[0], "drawable", context.getPackageName());
             recipeImage.setImageResource(imageId);
             recipeName.setText(recipe.getName());
+        }
+
+        @Override
+        public void onClick(View v) {
+            listener.onClick(v, getAdapterPosition());
         }
     }
 }
