@@ -12,5 +12,22 @@
         android:src="@drawable/brownies"
         android:scaleType="centerCrop"/>
 
+    <View
+        android:layout_gravity="bottom"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/dark_gray"/>
+
+    <TextView
+        android:id="@+id/recipe_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:textSize="24sp"
+        android:textColor="@color/white"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="5dp"
+        android:text="Brownies"/>
+
 </android.support.v7.widget.CardView>
 

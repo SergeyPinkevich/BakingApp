@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
 
     @Override
     public void showRecipes(List<Recipe> recipeList) {
-        MainAdapter adapter = new MainAdapter(recipeList);
+        MainAdapter adapter = new MainAdapter(this, recipeList);
         recipesRecyclerView.setAdapter(adapter);
         recipesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
