@@ -1,8 +1,10 @@
 package com.innopolis.sergeypinkevich.bakingapp.feature.main;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -47,7 +49,11 @@ public class MainActivity extends AppCompatActivity implements MainView {
         MainAdapter adapter = new MainAdapter((view, position) -> presenter.showInformationAboutRecipe(recipeList.get(position)));
         adapter.setData(this, recipeList);
         recipesRecyclerView.setAdapter(adapter);
-        recipesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        if (isLandscapeOrientation()) {
+            recipesRecyclerView.setLayoutManager(new GridLayoutManager(this, 3));
+        } else {
+            recipesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        }
     }
 
     @Override
@@ -55,5 +61,9 @@ public class MainActivity extends AppCompatActivity implements MainView {
         Intent intent = new Intent(this, RecipeActivity.class);
         intent.putExtra(RECIPE_KEY, recipe);
         startActivity(intent);
+    }
+
+    private boolean isLandscapeOrientation() {
+        return getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
     }
 }
