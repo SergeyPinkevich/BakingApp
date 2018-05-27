@@ -11,7 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.innopolis.sergeypinkevich.bakingapp.R;
 import com.innopolis.sergeypinkevich.bakingapp.di.BaseApp;
-import com.innopolis.sergeypinkevich.bakingapp.feature.detail.RecipeActivity;
+import com.innopolis.sergeypinkevich.bakingapp.feature.detail.DetailActivity;
 import com.innopolis.sergeypinkevich.domain.entity.Recipe;
 
 import java.util.List;
@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
 
     @Override
     public void showInformationAboutRecipe(Recipe recipe) {
-        Intent intent = new Intent(this, RecipeActivity.class);
+        Intent intent = new Intent(this, DetailActivity.class);
         intent.putExtra(RECIPE_KEY, recipe);
         startActivity(intent);
     }
