@@ -19,8 +19,6 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
     @InjectPresenter
     DetailPresenter presenter;
 
-    public Recipe recipe;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         BaseApp.component.inject(this);
@@ -33,7 +31,7 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
 
         presenter.attachView(this);
         if (getIntent() != null && getIntent().getExtras() != null && getIntent().getExtras().containsKey(MainActivity.RECIPE_KEY)) {
-            recipe = getIntent().getExtras().getParcelable(MainActivity.RECIPE_KEY);
+            presenter.handleIntentData(getIntent().getExtras().getParcelable(MainActivity.RECIPE_KEY));
         }
     }
 
@@ -45,16 +43,12 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
         return super.onOptionsItemSelected(item);
     }
 
-    public void initFragments(Recipe recipe) {
-//        getSupportFragmentManager().beginTransaction().add(setupRecipeDetailFragment(recipe)).commit()
-    }
-
     @Override
     public void setupRecipeDetailFragment(Recipe recipe) {
-//        Bundle bundle = new Bundle();
-//        bundle.putParcelable(MainActivity.RECIPE_KEY, recipe);
-//        RecipeDetailFragment fragment = new RecipeDetailFragment();
-//        fragment.setArguments(bundle);
-//        return fragment;
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(MainActivity.RECIPE_KEY, recipe);
+        RecipeDetailFragment fragment = new RecipeDetailFragment();
+        fragment.setArguments(bundle);
+        getSupportFragmentManager().beginTransaction().add(R.id.list_fragment, fragment).commit();
     }
 }

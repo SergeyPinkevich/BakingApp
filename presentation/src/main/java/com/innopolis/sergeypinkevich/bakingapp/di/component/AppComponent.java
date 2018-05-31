@@ -3,6 +3,7 @@ package com.innopolis.sergeypinkevich.bakingapp.di.component;
 import com.innopolis.sergeypinkevich.bakingapp.di.module.AppModule;
 import com.innopolis.sergeypinkevich.bakingapp.di.module.RepositoryModule;
 import com.innopolis.sergeypinkevich.bakingapp.feature.detail.DetailActivity;
+import com.innopolis.sergeypinkevich.bakingapp.feature.detail.list.RecipeDetailFragment;
 import com.innopolis.sergeypinkevich.bakingapp.feature.main.MainActivity;
 
 import javax.inject.Singleton;
@@ -19,4 +20,6 @@ public interface AppComponent {
     void inject(MainActivity activity);
 
     void inject(DetailActivity activity);
+
+    void inject(RecipeDetailFragment fragment);
 }
