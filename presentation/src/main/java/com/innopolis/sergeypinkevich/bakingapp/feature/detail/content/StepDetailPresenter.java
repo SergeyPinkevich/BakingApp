@@ -25,4 +25,25 @@ public class StepDetailPresenter extends MvpPresenter<StepDetailView> {
         getViewState().showVideo(step.getVideoURL());
         getViewState().showDescription(step.getDescription());
     }
+
+    public void nextStep(Bundle arguments) {
+        Recipe recipe = arguments.getParcelable(MainActivity.RECIPE_KEY);
+        int currentStep = arguments.getInt(StepDetailFragment.STEP_KEY);
+        if (currentStep < recipe.getSteps().size() - 1) {
+            arguments.putInt(StepDetailFragment.STEP_KEY, currentStep + 1);
+            handleCurrentStep(arguments);
+        } else {
+            getViewState().showMessageAboutLastStep();
+        }
+    }
+
+    public void previousStep(Bundle arguments) {
+        int currentStep = arguments.getInt(StepDetailFragment.STEP_KEY);
+        if (currentStep > 0) {
+            arguments.putInt(StepDetailFragment.STEP_KEY, currentStep - 1);
+            handleCurrentStep(arguments);
+        } else {
+            getViewState().showMessageAboutFirstStep();
+        }
+    }
 }

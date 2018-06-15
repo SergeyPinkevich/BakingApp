@@ -10,4 +10,8 @@ public interface StepDetailView extends MvpView {
     void showVideo(String url);
 
     void showDescription(String description);
+
+    void showMessageAboutLastStep();
+
+    void showMessageAboutFirstStep();
 }

@@ -11,7 +11,9 @@ import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.google.android.exoplayer2.DefaultLoadControl;
@@ -50,6 +52,10 @@ public class StepDetailFragment extends Fragment implements StepDetailView, ExoP
     SimpleExoPlayerView playerView;
     @BindView(R.id.description)
     TextView description;
+    @BindView(R.id.previous)
+    Button previous;
+    @BindView(R.id.next)
+    Button next;
 
     private SimpleExoPlayer player;
     private PlaybackStateCompat.Builder stateBuilder;
@@ -70,10 +76,20 @@ public class StepDetailFragment extends Fragment implements StepDetailView, ExoP
 
         initializeMediaSession();
         initializePlayer();
-        description.setMovementMethod(new ScrollingMovementMethod());
+        initializeDescription();
+        initializeButtons();
 
         presenter.attachView(this);
         presenter.handleCurrentStep(getArguments());
+    }
+
+    private void initializeButtons() {
+        previous.setOnClickListener(v -> presenter.previousStep(getArguments()));
+        next.setOnClickListener(v -> presenter.nextStep(getArguments()));
+    }
+
+    private void initializeDescription() {
+        description.setMovementMethod(new ScrollingMovementMethod());
     }
 
     @Override
@@ -100,6 +116,16 @@ public class StepDetailFragment extends Fragment implements StepDetailView, ExoP
     @Override
     public void showDescription(String description) {
         this.description.setText(description);
+    }
+
+    @Override
+    public void showMessageAboutLastStep() {
+        Toast.makeText(getContext(), getString(R.string.last_step), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showMessageAboutFirstStep() {
+        Toast.makeText(getContext(), getString(R.string.first_step), Toast.LENGTH_SHORT).show();
     }
 
     /**
