@@ -16,6 +16,6 @@ public class DetailPresenter extends MvpPresenter<DetailView> {
     public DetailPresenter() {}
 
     public void handleIntentData(Recipe recipe) {
-        getViewState().setupRecipeDetailFragment(recipe);
+        getViewState().showRecipeDetailFragment(recipe);
     }
 }

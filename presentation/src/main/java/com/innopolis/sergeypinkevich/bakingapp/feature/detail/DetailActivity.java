@@ -44,11 +44,15 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
     }
 
     @Override
-    public void setupRecipeDetailFragment(Recipe recipe) {
+    public void showRecipeDetailFragment(Recipe recipe) {
         Bundle bundle = new Bundle();
         bundle.putParcelable(MainActivity.RECIPE_KEY, recipe);
         RecipeDetailFragment fragment = new RecipeDetailFragment();
         fragment.setArguments(bundle);
-        getSupportFragmentManager().beginTransaction().add(R.id.list_fragment, fragment).commit();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.list_fragment, fragment)
+                .addToBackStack(null)
+                .commit();
     }
 }

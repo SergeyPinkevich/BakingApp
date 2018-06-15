@@ -12,6 +12,7 @@ buildscript {
         toasty_version = '1.2.8'
         picasso_version = '2.5.2'
         butterknife_version = '8.8.1'
+        exo_player_version = '2.8.1'
     }
     repositories {
         google()

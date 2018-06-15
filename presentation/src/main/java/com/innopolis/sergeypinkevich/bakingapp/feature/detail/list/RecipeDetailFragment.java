@@ -13,10 +13,13 @@ import android.widget.ListView;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.innopolis.sergeypinkevich.bakingapp.R;
 import com.innopolis.sergeypinkevich.bakingapp.di.BaseApp;
+import com.innopolis.sergeypinkevich.bakingapp.feature.detail.content.StepDetailFragment;
 
 import java.util.List;
 
 import javax.inject.Inject;
+
+import static com.innopolis.sergeypinkevich.bakingapp.feature.detail.content.StepDetailFragment.STEP_KEY;
 
 public class RecipeDetailFragment extends Fragment implements RecipeDetailView {
 
@@ -25,6 +28,10 @@ public class RecipeDetailFragment extends Fragment implements RecipeDetailView {
     RecipeDetailPresenter presenter;
 
     private ListView listView;
+
+    public RecipeDetailFragment() {
+        // Required empty public constructor
+    }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -47,5 +54,18 @@ public class RecipeDetailFragment extends Fragment implements RecipeDetailView {
     public void showList(List<String> list) {
         ArrayAdapter<String> adapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1, list);
         listView.setAdapter(adapter);
+        listView.setOnItemClickListener((parent, view, position, id) -> getActivity().getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.list_fragment, prepareFragment(position))
+                .addToBackStack(null)
+                .commit());
+    }
+
+    private StepDetailFragment prepareFragment(int step) {
+        StepDetailFragment fragment = new StepDetailFragment();
+        Bundle bundle = getArguments();
+        bundle.putInt(STEP_KEY, step);
+        fragment.setArguments(bundle);
+        return fragment;
     }
 }

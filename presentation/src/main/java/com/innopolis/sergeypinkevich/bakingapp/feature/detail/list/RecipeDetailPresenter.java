@@ -20,9 +20,7 @@ import javax.inject.Inject;
 public class RecipeDetailPresenter extends MvpPresenter<RecipeDetailView> {
 
     @Inject
-    public RecipeDetailPresenter() {
-
-    }
+    public RecipeDetailPresenter() {}
 
     public void prepareData(Bundle arguments) {
         Recipe recipe = arguments.getParcelable(MainActivity.RECIPE_KEY);

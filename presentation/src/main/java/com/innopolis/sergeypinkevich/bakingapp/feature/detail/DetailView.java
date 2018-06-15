@@ -8,5 +8,5 @@ import com.innopolis.sergeypinkevich.domain.entity.Recipe;
  */
 public interface DetailView extends MvpView {
 
-    void setupRecipeDetailFragment(Recipe recipe);
+    void showRecipeDetailFragment(Recipe recipe);
 }
