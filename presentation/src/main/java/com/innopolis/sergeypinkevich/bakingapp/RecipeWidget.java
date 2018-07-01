@@ -8,6 +8,10 @@ import android.content.Intent;
 import android.widget.RemoteViews;
 
 import com.innopolis.sergeypinkevich.bakingapp.feature.detail.DetailActivity;
+import com.innopolis.sergeypinkevich.data.repository.DataProviderImpl;
+import com.innopolis.sergeypinkevich.domain.repository.DataProvider;
+
+import static com.innopolis.sergeypinkevich.bakingapp.feature.main.MainActivity.RECIPE_KEY;
 
 /**
  * Implementation of App Widget functionality.
@@ -16,13 +20,16 @@ public class RecipeWidget extends AppWidgetProvider {
 
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
-
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.recipe_widget);
+
+        DataProvider dataProvider = new DataProviderImpl(context);
 
         views.setTextViewText(R.id.recipe_ingredients, context.getResources().getString(R.string.desired_receipt_ingredients));
 
         Intent intent = new Intent(context, DetailActivity.class);
+        intent.putExtra(RECIPE_KEY, dataProvider.getRecipesList().get(1));
+        intent.setAction("com.innopolis.sergeypinkevich.bakingapp");
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
         views.setOnClickPendingIntent(R.id.recipe_ingredients, pendingIntent);
 
