@@ -14,4 +14,8 @@ public interface StepDetailView extends MvpView {
     void showMessageAboutLastStep();
 
     void showMessageAboutFirstStep();
+
+    void showPlayer();
+
+    void hidePlayer();
 }

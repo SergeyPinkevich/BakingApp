@@ -9,4 +9,6 @@ import com.innopolis.sergeypinkevich.domain.entity.Recipe;
 public interface DetailView extends MvpView {
 
     void showRecipeDetailFragment(Recipe recipe);
+
+    void setToolbarTitle(String text);
 }

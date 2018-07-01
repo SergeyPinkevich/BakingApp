@@ -13,6 +13,7 @@ import android.widget.ListView;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.innopolis.sergeypinkevich.bakingapp.R;
 import com.innopolis.sergeypinkevich.bakingapp.di.BaseApp;
+import com.innopolis.sergeypinkevich.bakingapp.feature.detail.DetailActivity;
 import com.innopolis.sergeypinkevich.bakingapp.feature.detail.content.StepDetailFragment;
 
 import java.util.List;
@@ -54,11 +55,19 @@ public class RecipeDetailFragment extends Fragment implements RecipeDetailView {
     public void showList(List<String> list) {
         ArrayAdapter<String> adapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1, list);
         listView.setAdapter(adapter);
-        listView.setOnItemClickListener((parent, view, position, id) -> getActivity().getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.list_fragment, prepareFragment(position))
-                .addToBackStack(null)
-                .commit());
+        if (((DetailActivity)getActivity()).twoPane) {
+            listView.setOnItemClickListener((parent, view, position, id) -> getActivity().getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.step_detail, prepareFragment(position))
+                    .addToBackStack(null)
+                    .commit());
+        } else {
+            listView.setOnItemClickListener((parent, view, position, id) -> getActivity().getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.list_fragment, prepareFragment(position))
+                    .addToBackStack(null)
+                    .commit());
+        }
     }
 
     private StepDetailFragment prepareFragment(int step) {

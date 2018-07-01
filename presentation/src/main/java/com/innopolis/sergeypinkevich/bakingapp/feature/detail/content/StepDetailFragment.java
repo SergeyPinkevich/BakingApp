@@ -128,6 +128,16 @@ public class StepDetailFragment extends Fragment implements StepDetailView, ExoP
         Toast.makeText(getContext(), getString(R.string.first_step), Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    public void showPlayer() {
+        playerView.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hidePlayer() {
+        playerView.setVisibility(View.GONE);
+    }
+
     /**
      * Initialize ExoPlayer.
      */

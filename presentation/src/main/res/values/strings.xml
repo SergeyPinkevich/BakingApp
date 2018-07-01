@@ -5,4 +5,19 @@
     <string name="next">Next</string>
     <string name="first_step">It is the first step. There is no more previous steps</string>
     <string name="last_step">It is the last step. There is no more next steps</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+
+    <string name="desired_receipt_ingredients">\n
+        350.0 G Bittersweet chocolate (60-70% cacao)\n
+        226.0 G unsalted butter\n
+        300.0 G granulated sugar\n
+        100.0 G light brown sugar\n
+        5.0 UNIT large eggs\n
+        1.0 TBLSP vanilla extract\n
+        140.0 G all purpose flour\n
+        40.0 G cocoa powder\n
+        1.5 TSP salt\n
+        350.0 G semisweet chocolate chips\n
+    </string>
 </resources>
