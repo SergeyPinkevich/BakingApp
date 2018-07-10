@@ -4,7 +4,10 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -19,6 +22,9 @@ import com.innopolis.sergeypinkevich.bakingapp.feature.detail.content.StepDetail
 import java.util.List;
 
 import javax.inject.Inject;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 import static com.innopolis.sergeypinkevich.bakingapp.feature.detail.content.StepDetailFragment.STEP_KEY;
 
@@ -39,6 +45,9 @@ public class RecipeDetailFragment extends Fragment implements RecipeDetailView {
         BaseApp.component.inject(this);
         super.onActivityCreated(savedInstanceState);
 
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         presenter.attachView(this);
         presenter.prepareData(getArguments());
     }
@@ -48,6 +57,7 @@ public class RecipeDetailFragment extends Fragment implements RecipeDetailView {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_recipe_detail, container, false);
         listView = view.findViewById(R.id.list_view);
+        ButterKnife.bind(this, view);
         return view;
     }
 
@@ -67,6 +77,17 @@ public class RecipeDetailFragment extends Fragment implements RecipeDetailView {
                     .replace(R.id.list_fragment, prepareFragment(position))
                     .addToBackStack(null)
                     .commit());
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            getActivity().finish();
+            return false;
+        } else {
+            // Do some other things to other menu
+            return super.onOptionsItemSelected(item);
         }
     }
 

@@ -37,9 +37,4 @@ public class MainActivityTest {
         onView(withId(R.id.main_recycler)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
         onView(allOf(isAssignableFrom(TextView.class), withParent(isAssignableFrom(Toolbar.class)))).check(matches(withText(RECIPE_NAME)));
     }
-
-    @Test
-    public void clickOnSecondReceipt_testIntentData() {
-        onView(withId(R.id.main_recycler)).perform(RecyclerViewActions.actionOnItemAtPosition(1, click()));
-    }
 }

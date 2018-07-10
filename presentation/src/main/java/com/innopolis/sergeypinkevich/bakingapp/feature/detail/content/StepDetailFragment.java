@@ -7,8 +7,12 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.media.session.MediaSessionCompat;
 import android.support.v4.media.session.PlaybackStateCompat;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.Toolbar;
 import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -47,6 +51,7 @@ public class StepDetailFragment extends Fragment implements StepDetailView, ExoP
 
     public static final String TAG = StepDetailFragment.class.getSimpleName();
     public static final String STEP_KEY = "step";
+    public static final String PLAYER_POSITION = "player_position";
 
     @BindView(R.id.player)
     SimpleExoPlayerView playerView;
@@ -60,6 +65,7 @@ public class StepDetailFragment extends Fragment implements StepDetailView, ExoP
     private SimpleExoPlayer player;
     private PlaybackStateCompat.Builder stateBuilder;
     private MediaSessionCompat mediaSession;
+    private long position;
 
     @Inject
     @InjectPresenter
@@ -67,6 +73,27 @@ public class StepDetailFragment extends Fragment implements StepDetailView, ExoP
 
     public StepDetailFragment() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        position = player.getCurrentPosition();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        player.seekTo(position);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            getActivity().onBackPressed();
+            return false;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -79,8 +106,16 @@ public class StepDetailFragment extends Fragment implements StepDetailView, ExoP
         initializeDescription();
         initializeButtons();
 
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         presenter.attachView(this);
         presenter.handleCurrentStep(getArguments());
+
+        if (savedInstanceState != null) {
+            position = savedInstanceState.getLong(PLAYER_POSITION);
+            player.seekTo(position);
+        }
     }
 
     private void initializeButtons() {

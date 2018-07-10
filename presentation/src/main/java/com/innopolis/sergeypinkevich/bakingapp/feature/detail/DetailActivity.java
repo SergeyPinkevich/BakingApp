@@ -1,14 +1,16 @@
 package com.innopolis.sergeypinkevich.bakingapp.feature.detail;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.util.DisplayMetrics;
 import android.view.MenuItem;
-import android.widget.Button;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.innopolis.sergeypinkevich.bakingapp.R;
 import com.innopolis.sergeypinkevich.bakingapp.di.BaseApp;
+import com.innopolis.sergeypinkevich.bakingapp.feature.detail.content.StepDetailFragment;
 import com.innopolis.sergeypinkevich.bakingapp.feature.detail.list.RecipeDetailFragment;
 import com.innopolis.sergeypinkevich.bakingapp.feature.main.MainActivity;
 import com.innopolis.sergeypinkevich.domain.entity.Recipe;
@@ -17,8 +19,6 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
-import static android.content.res.Configuration.ORIENTATION_LANDSCAPE;
 
 public class DetailActivity extends AppCompatActivity implements DetailView {
 
@@ -37,26 +37,26 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
 
         ButterKnife.bind(this);
 
-        if (getResources().getConfiguration().orientation == ORIENTATION_LANDSCAPE) {
+        if (smallestWidth() > 600) {
             twoPane = true;
         }
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-
         presenter.attachView(this);
+
         if (getIntent() != null && getIntent().getExtras() != null && getIntent().getExtras().containsKey(MainActivity.RECIPE_KEY)) {
             presenter.handleIntentData(getIntent().getExtras().getParcelable(MainActivity.RECIPE_KEY));
         }
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            onBackPressed();
-            finish();
-        }
-        return super.onOptionsItemSelected(item);
+    private float smallestWidth() {
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        int widthPixels = metrics.widthPixels;
+        int heightPixels = metrics.heightPixels;
+        float scaleFactor = metrics.density;
+        float widthDp = widthPixels / scaleFactor;
+        float heightDp = heightPixels / scaleFactor;
+        return Math.min(widthDp, heightDp);
     }
 
     @Override
@@ -67,13 +67,25 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
         fragment.setArguments(bundle);
         getSupportFragmentManager()
                 .beginTransaction()
-                .add(R.id.list_fragment, fragment)
-                .addToBackStack(null)
+                .replace(R.id.list_fragment, fragment)
+                .addToBackStack(RecipeDetailFragment.class.getSimpleName())
                 .commit();
     }
 
     @Override
     public void setToolbarTitle(String text) {
         getSupportActionBar().setTitle(text);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            if (twoPane) {
+                finish();
+            } else {
+                onBackPressed();
+            }
+        }
+        return false;
     }
 }
