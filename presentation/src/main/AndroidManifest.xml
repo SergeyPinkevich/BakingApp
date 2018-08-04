@@ -21,7 +21,8 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".feature.detail.DetailActivity">
+        <activity android:name=".feature.detail.DetailActivity"
+            android:launchMode="singleTop">
         </activity>
 
         <receiver android:name=".RecipeWidget">
