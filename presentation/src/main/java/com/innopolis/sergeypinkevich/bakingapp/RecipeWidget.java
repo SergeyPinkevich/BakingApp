@@ -23,15 +23,18 @@ public class RecipeWidget extends AppWidgetProvider {
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.recipe_widget);
 
-        DataProvider dataProvider = new DataProviderImpl(context);
+        //Create an Intent with the AppWidgetManager.ACTION_APPWIDGET_UPDATE action
+        Intent intentUpdate = new Intent(context, RecipeWidget.class);
+        intentUpdate.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
 
-        views.setTextViewText(R.id.recipe_ingredients, context.getResources().getString(R.string.desired_receipt_ingredients));
+        //Update the current widget instance only, by creating an array that contains the widget’s unique ID
+        int[] idArray = new int[]{appWidgetId};
+        intentUpdate.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, idArray);
 
+        //Wrap the intent as a PendingIntent, using PendingIntent.getBroadcast()
         Intent intent = new Intent(context, DetailActivity.class);
-        intent.putExtra(RECIPE_KEY, dataProvider.getRecipesList().get(1));
-        intent.setAction("com.innopolis.sergeypinkevich.bakingapp");
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
-        views.setOnClickPendingIntent(R.id.recipe_ingredients, pendingIntent);
+        views.setOnClickPendingIntent(R.id.widget_layout, pendingIntent);
 
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);

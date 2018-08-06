@@ -1,46 +1,37 @@
-package com.innopolis.sergeypinkevich.bakingapp.feature.main;
+package com.innopolis.sergeypinkevich.bakingapp.feature.detail.list;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.innopolis.sergeypinkevich.bakingapp.R;
-import com.innopolis.sergeypinkevich.bakingapp.di.scope.ApplicationContext;
-import com.innopolis.sergeypinkevich.domain.entity.Recipe;
+import com.innopolis.sergeypinkevich.bakingapp.feature.main.AdapterClickListener;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-/**
- * @author Sergey Pinkevich
- */
-public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
+public class RecipeDetailAdapter extends RecyclerView.Adapter<RecipeDetailAdapter.ViewHolder> {
 
     private AdapterClickListener listener;
-    private Context context;
-    private List<Recipe> recipes;
+    private List<String> recipes;
 
-    public MainAdapter(AdapterClickListener listener) {
+    public RecipeDetailAdapter(AdapterClickListener listener) {
         this.listener = listener;
     }
 
-    public void setData(Context context, List<Recipe> recipes) {
-        this.context = context;
+    public void setRecipes(List<String> recipes) {
         this.recipes = recipes;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        CardView view = (CardView) LayoutInflater.from(parent.getContext()).inflate(R.layout.recipe_card, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recipe_item, parent, false);
         return new ViewHolder(view, listener);
     }
 
@@ -56,10 +47,8 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        @BindView(R.id.recipe_image)
-        ImageView recipeImage;
-        @BindView(R.id.recipe_name)
-        TextView recipeName;
+        @BindView(R.id.recipe_step_text)
+        TextView stepText;
 
         public ViewHolder(View itemView, AdapterClickListener clickListener) {
             super(itemView);
@@ -68,14 +57,8 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
             ButterKnife.bind(this, itemView);
         }
 
-        public void bind(Recipe recipe) {
-            if (recipe.getName() != null) {
-                int imageId = context.getResources().getIdentifier(recipe.getName().toLowerCase().split("\\s+")[0], "drawable", context.getPackageName());
-                if (imageId != 0) {
-                    recipeImage.setImageResource(imageId);
-                }
-                recipeName.setText(recipe.getName());
-            }
+        public void bind(String s) {
+            stepText.setText(s);
         }
 
         @Override

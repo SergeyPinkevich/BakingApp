@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.ExoPlaybackException;
@@ -47,7 +48,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class StepDetailFragment extends Fragment implements StepDetailView, ExoPlayer.EventListener {
+public class StepDetailFragment extends MvpAppCompatFragment implements StepDetailView, ExoPlayer.EventListener {
 
     public static final String TAG = StepDetailFragment.class.getSimpleName();
     public static final String STEP_KEY = "step";
@@ -65,7 +66,7 @@ public class StepDetailFragment extends Fragment implements StepDetailView, ExoP
     private SimpleExoPlayer player;
     private PlaybackStateCompat.Builder stateBuilder;
     private MediaSessionCompat mediaSession;
-    private long position;
+    public long position;
 
     @Inject
     @InjectPresenter
@@ -82,8 +83,31 @@ public class StepDetailFragment extends Fragment implements StepDetailView, ExoP
     }
 
     @Override
+    public void onStop() {
+        super.onStop();
+        releasePlayer();
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putLong(PLAYER_POSITION, position);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (player == null) {
+            initializePlayer();
+        }
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
+        if (player == null) {
+            initializePlayer();
+        }
         player.seekTo(position);
     }
 
@@ -291,9 +315,11 @@ public class StepDetailFragment extends Fragment implements StepDetailView, ExoP
      * Release ExoPlayer.
      */
     private void releasePlayer() {
-        player.stop();
-        player.release();
-        player = null;
+        if (player != null) {
+            player.stop();
+            player.release();
+            player = null;
+        }
     }
 
     /**

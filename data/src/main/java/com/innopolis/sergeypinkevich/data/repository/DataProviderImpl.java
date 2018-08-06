@@ -37,6 +37,7 @@ public class DataProviderImpl implements DataProvider {
     public static final String QUANTITY = "quantity";
     public static final String MEASURE = "measure";
     public static final String INGREDIENT = "ingredient";
+    public static final String THUMBNAIL_URL = "thumbnailURL";
 
     private Context context;
 
@@ -88,6 +89,9 @@ public class DataProviderImpl implements DataProvider {
                 String shortDescription = step.getString(SHORT_DESCRIPTION);
                 String description = step.getString(DESCRIPTION);
                 String videoURL = step.getString(VIDEO_URL);
+                if (videoURL.isEmpty()) {
+                    videoURL = step.getString(THUMBNAIL_URL);
+                }
                 steps.add(new Step(id, shortDescription, description, videoURL));
             }
         } catch (JSONException ex) {

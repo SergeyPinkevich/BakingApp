@@ -25,7 +25,7 @@ public class StepDetailPresenter extends MvpPresenter<StepDetailView> {
         int position = arguments.getInt(StepDetailFragment.STEP_KEY);
         Step step;
         // we click by some step
-        if (position > 0) {
+        if (position - 1 > 0) {
             step = recipe.getSteps().get(position);
             getViewState().showPlayer();
             getViewState().showVideo(step.getVideoURL());
