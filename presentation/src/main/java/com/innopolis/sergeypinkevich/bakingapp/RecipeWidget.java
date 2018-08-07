@@ -8,10 +8,6 @@ import android.content.Intent;
 import android.widget.RemoteViews;
 
 import com.innopolis.sergeypinkevich.bakingapp.feature.detail.DetailActivity;
-import com.innopolis.sergeypinkevich.data.repository.DataProviderImpl;
-import com.innopolis.sergeypinkevich.domain.repository.DataProvider;
-
-import static com.innopolis.sergeypinkevich.bakingapp.feature.main.MainActivity.RECIPE_KEY;
 
 /**
  * Implementation of App Widget functionality.

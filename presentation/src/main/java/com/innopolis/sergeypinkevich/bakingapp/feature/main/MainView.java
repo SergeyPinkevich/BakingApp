@@ -13,4 +13,6 @@ public interface MainView extends MvpView {
     void showRecipes(List<Recipe> recipeList);
 
     void showInformationAboutRecipe(Recipe recipe);
+
+    void showError();
 }

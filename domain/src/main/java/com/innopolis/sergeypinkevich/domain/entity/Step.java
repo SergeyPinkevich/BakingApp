@@ -3,21 +3,30 @@ package com.innopolis.sergeypinkevich.domain.entity;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * @author Sergey Pinkevich
  */
 public class Step implements Parcelable {
 
+    @SerializedName("id")
     private int id;
+    @SerializedName("shortDescription")
     private String shortDescription;
+    @SerializedName("description")
     private String description;
+    @SerializedName("videoURL")
     private String videoURL;
+    @SerializedName("thumbnailURL")
+    private String thumbnailURL;
 
-    public Step(int id, String shortDescription, String description, String videoURL) {
+    public Step(int id, String shortDescription, String description, String videoURL, String thumbnailURL) {
         this.id = id;
         this.shortDescription = shortDescription;
         this.description = description;
         this.videoURL = videoURL;
+        this.thumbnailURL = thumbnailURL;
     }
 
     public int getId() {
@@ -83,4 +92,12 @@ public class Step implements Parcelable {
             return new Step[size];
         }
     };
+
+    public String getThumbnailURL() {
+        return thumbnailURL;
+    }
+
+    public void setThumbnailURL(String thumbnailURL) {
+        this.thumbnailURL = thumbnailURL;
+    }
 }

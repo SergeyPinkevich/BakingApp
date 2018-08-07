@@ -1,7 +1,7 @@
 package com.innopolis.sergeypinkevich.bakingapp.di.component;
 
 import com.innopolis.sergeypinkevich.bakingapp.di.module.AppModule;
-import com.innopolis.sergeypinkevich.bakingapp.di.module.RepositoryModule;
+import com.innopolis.sergeypinkevich.bakingapp.di.module.NetworkModule;
 import com.innopolis.sergeypinkevich.bakingapp.feature.detail.DetailActivity;
 import com.innopolis.sergeypinkevich.bakingapp.feature.detail.content.StepDetailFragment;
 import com.innopolis.sergeypinkevich.bakingapp.feature.detail.list.RecipeDetailFragment;
@@ -15,7 +15,7 @@ import dagger.Component;
  * @author Sergey Pinkevich
  */
 @Singleton
-@Component(modules = {AppModule.class, RepositoryModule.class})
+@Component(modules = {AppModule.class, NetworkModule.class})
 public interface AppComponent {
 
     void inject(MainActivity activity);

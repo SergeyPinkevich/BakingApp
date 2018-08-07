@@ -25,6 +25,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import es.dmoral.toasty.Toasty;
 
 public class MainActivity extends AppCompatActivity implements MainView {
 
@@ -69,6 +70,11 @@ public class MainActivity extends AppCompatActivity implements MainView {
         Intent intent = new Intent(this, DetailActivity.class);
         intent.putExtra(RECIPE_KEY, recipe);
         startActivity(intent);
+    }
+
+    @Override
+    public void showError() {
+        Toasty.error(this, getString(R.string.error)).show();
     }
 
     private boolean isLandscapeOrientation() {

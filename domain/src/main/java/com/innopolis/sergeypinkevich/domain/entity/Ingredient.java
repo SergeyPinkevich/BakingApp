@@ -3,13 +3,18 @@ package com.innopolis.sergeypinkevich.domain.entity;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * @author Sergey Pinkevich
  */
 public class Ingredient implements Parcelable {
 
+    @SerializedName("quantity")
     private double quantity;
+    @SerializedName("measure")
     private String measure;
+    @SerializedName("ingredient")
     private String ingredient;
 
     public Ingredient(double quantity, String measure, String ingredient) {

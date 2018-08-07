@@ -3,6 +3,8 @@ package com.innopolis.sergeypinkevich.domain.entity;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,10 +13,15 @@ import java.util.List;
  */
 public class Recipe implements Parcelable {
 
+    @SerializedName("id")
     private int id;
+    @SerializedName("name")
     private String name;
+    @SerializedName("ingredients")
     private List<Ingredient> mIngredients;
+    @SerializedName("steps")
     private List<Step> steps;
+    @SerializedName("servings")
     private int servings;
 
     public Recipe(int id, String name, List<Ingredient> ingredients, List<Step> steps, int servings) {

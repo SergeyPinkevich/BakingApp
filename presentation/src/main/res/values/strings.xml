@@ -8,6 +8,7 @@
     <string name="appwidget_text">EXAMPLE</string>
     <string name="add_widget">Add widget</string>
     <string name="recipe_image">Recipe image</string>
+    <string name="error">There is an error handling recipes list</string>
 
     <string name="desired_receipt_ingredients">
         350.0 G Bittersweet chocolate (60-70% cacao)\n
